@@ -4,7 +4,7 @@
  */
 package PageObject;
 
-import TestUtils.TableHandlers;
+import TestUtils.SeleniumTableHandlers;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,7 +22,7 @@ public class TablePage {
                                      String searchText, 
                                      int returnColumnText, 
                                      String expectedText) throws Exception{
-   return TableHandlers.verifyTableCellText(customersTable,searchColumn,searchText,returnColumnText,expectedText);
+   return SeleniumTableHandlers.verifyTableCellText(customersTable,searchColumn,searchText,returnColumnText,expectedText);
    }
     
 }

@@ -5,6 +5,9 @@
 package w3scoolTests;
 
 import PageObject.TablePage;
+import TestUtils.ReadFromCsv;
+import java.io.File;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
@@ -19,9 +22,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
  *
  * @author מנהל
  */
-public class VerifyTableTest {
+public class HTMLTableTest {
     static WebDriver driver;
-    public VerifyTableTest() {
+    public HTMLTableTest() {
     }
     
     @BeforeAll
@@ -44,20 +47,27 @@ public class VerifyTableTest {
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-     @Test
-     public void hello() {}
-     public class NewEmptyJUnitTest {
-     }
-
   @Test
-  public void firsttest() throws Exception {
+  public void verifyCastomersTableCellValues() throws Exception {
       TablePage tablePage=new TablePage(driver);
-      boolean match=tablePage.verifyCastomersTableCellText(1,"Alfreds Futterkiste",3,"Germany");
-      Assertions.assertTrue(match,"the expected text doesn't found for the search text");
+      List<String[]> expectedValues=
+      ReadFromCsv.getCsvValues(getResorceFile());
+       for (int row=1;row<expectedValues.size();row++){ 
+           String name = expectedValues.get(row)[0];
+           for(int column=1;column<expectedValues.get(row).length;column++){
+           boolean match=tablePage.verifyCastomersTableCellText(
+                   0,name,column+1,expectedValues.get(row)[column]);
+           System.out.println(name+"|"+expectedValues.get(row)[column]+"|"+row+"|"+column+"|"+match);
+           Assertions.assertTrue(match,"the expected text doesn't found for the search text");
+           }   
+       }  
   }
+
+    private String getResorceFile() {
+        String folderLocation=new File("").getAbsolutePath();
+        String filePath=folderLocation+"\\src\\test\\java\\testResorce\\ElementToSearch.csv";
+        return filePath;
+    }
 }
      
   

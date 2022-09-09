@@ -11,7 +11,7 @@ import org.openqa.selenium.WebElement;
  *
  * @author מנהל
  */
-public class TableHandlers {
+public class SeleniumTableHandlers {
      public static boolean verifyTableCellText(WebElement table,
                                      int searchColumn,
                                      String searchText, 
@@ -27,6 +27,6 @@ public class TableHandlers {
         String xpath=String.format("//table[@id=\"customers\"]//tr[td[text()='%s']]//td[%s]",
                 searchText,
                 returnColumnText);
-    return table.findElement(By.xpath(xpath)).getAttribute("innerHTML");
+        return table.findElement(By.xpath(xpath)).getAttribute("innerHTML");
 }
 }
